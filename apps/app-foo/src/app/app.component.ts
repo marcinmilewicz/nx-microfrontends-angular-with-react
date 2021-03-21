@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'nx-microfrontends-root',
+  selector: 'app-foo-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })

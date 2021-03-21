@@ -29,6 +29,20 @@
     },
     "@nrwl/angular:component": {
       "style": "scss"
+    },
+    "@nrwl/react": {
+      "application": {
+        "style": "css",
+        "linter": "eslint",
+        "babel": true
+      },
+      "component": {
+        "style": "css"
+      },
+      "library": {
+        "style": "css",
+        "linter": "eslint"
+      }
     }
   },
   "projects": {
@@ -39,7 +53,7 @@
       "prefix": "nx-microfrontends",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-builders/custom-webpack:browser",
           "options": {
             "outputPath": "dist/apps/app-shell",
             "index": "apps/app-shell/src/index.html",
@@ -52,7 +66,13 @@
               "apps/app-shell/src/assets"
             ],
             "styles": ["apps/app-shell/src/styles.scss"],
-            "scripts": []
+            "scripts": [],
+            "customWebpackConfig": {
+              "path": "./apps/app-shell/webpack.config.js",
+              "mergeRules": {
+                "externals": "replace"
+              }
+            }
           },
           "configurations": {
             "production": {
@@ -85,7 +105,7 @@
           }
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
             "browserTarget": "app-shell:build"
           },
@@ -120,32 +140,6 @@
         }
       }
     },
-    "app-shell-e2e": {
-      "root": "apps/app-shell-e2e",
-      "sourceRoot": "apps/app-shell-e2e/src",
-      "projectType": "application",
-      "architect": {
-        "e2e": {
-          "builder": "@nrwl/cypress:cypress",
-          "options": {
-            "cypressConfig": "apps/app-shell-e2e/cypress.json",
-            "tsConfig": "apps/app-shell-e2e/tsconfig.e2e.json",
-            "devServerTarget": "app-shell:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "app-shell:serve:production"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["apps/app-shell-e2e/**/*.{js,ts}"]
-          }
-        }
-      }
-    },
     "app-foo": {
       "projectType": "application",
       "root": "apps/app-foo",
@@ -153,7 +147,7 @@
       "prefix": "nx-microfrontends",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-builders/custom-webpack:browser",
           "options": {
             "outputPath": "dist/apps/app-foo",
             "index": "apps/app-foo/src/index.html",
@@ -166,7 +160,10 @@
               "apps/app-foo/src/assets"
             ],
             "styles": ["apps/app-foo/src/styles.css"],
-            "scripts": []
+            "scripts": [],
+            "customWebpackConfig": {
+              "path": "./apps/app-foo/webpack.config.js"
+            }
           },
           "configurations": {
             "production": {
@@ -199,7 +196,7 @@
           }
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
             "browserTarget": "app-foo:build"
           },
@@ -236,29 +233,120 @@
         }
       }
     },
-    "app-foo-e2e": {
-      "root": "apps/app-foo-e2e",
-      "sourceRoot": "apps/app-foo-e2e/src",
+    "app-bar": {
       "projectType": "application",
+      "root": "apps/app-bar",
+      "sourceRoot": "apps/app-bar/src",
+      "prefix": "nx-microfrontends",
       "architect": {
-        "e2e": {
-          "builder": "@nrwl/cypress:cypress",
+        "build": {
+          "builder": "@angular-builders/custom-webpack:browser",
           "options": {
-            "cypressConfig": "apps/app-foo-e2e/cypress.json",
-            "tsConfig": "apps/app-foo-e2e/tsconfig.e2e.json",
-            "devServerTarget": "app-foo:serve"
+            "outputPath": "dist/apps/app-bar",
+            "index": "apps/app-bar/src/index.html",
+            "main": "apps/app-bar/src/main.ts",
+            "polyfills": "apps/app-bar/src/polyfills.ts",
+            "tsConfig": "apps/app-bar/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/app-bar/src/favicon.ico",
+              "apps/app-bar/src/assets"
+            ],
+            "styles": ["apps/app-bar/src/styles.scss"],
+            "scripts": [],
+            "customWebpackConfig": {
+              "path": "./apps/app-bar/webpack.config.js"
+            }
           },
           "configurations": {
             "production": {
-              "devServerTarget": "app-foo:serve:production"
+              "fileReplacements": [
+                {
+                  "replace": "apps/app-bar/src/environments/environment.ts",
+                  "with": "apps/app-bar/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
             }
+          }
+        },
+        "serve": {
+          "builder": "@angular-builders/custom-webpack:dev-server",
+          "options": {
+            "browserTarget": "app-bar:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "app-bar:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "app-bar:build"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/app-foo-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/app-foo-e2e/**/*"]
+            "tsConfig": [
+              "apps/app-bar/tsconfig.app.json",
+              "apps/app-bar/tsconfig.spec.json",
+              "apps/app-bar/tsconfig.editor.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/app-bar/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/app-bar"],
+          "options": {
+            "jestConfig": "apps/app-bar/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "microfrontends-utils": {
+      "projectType": "library",
+      "root": "libs/microfrontends-utils",
+      "sourceRoot": "libs/microfrontends-utils/src",
+      "prefix": "nx-microfrontends",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/microfrontends-utils/src/**/*.ts",
+              "libs/microfrontends-utils/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/microfrontends-utils"],
+          "options": {
+            "jestConfig": "libs/microfrontends-utils/jest.config.js",
+            "passWithNoTests": true
           }
         }
       }

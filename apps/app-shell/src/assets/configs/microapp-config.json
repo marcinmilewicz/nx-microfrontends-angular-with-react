@@ -1,0 +1,27 @@
+{
+  "angularRemotes": [
+    {
+      "remoteEntry": "http://localhost:6002/bar-microapp.js",
+      "remoteName": "microappBar",
+      "exposedModule": "BarModule",
+      "displayName": "Bar App",
+      "routePath": "bar-microapp",
+      "ngModuleName": "BarModule"
+    },
+    {
+      "remoteEntry": "http://localhost:6003/foo-microapp.js",
+      "remoteName": "microappFoo",
+      "exposedModule": "FooModule",
+      "displayName": "Foo App",
+      "routePath": "foo-microapp",
+      "ngModuleName": "FooModule"
+    }
+  ],
+  "remotes": [
+    {
+      "remoteEntry": "http://localhost:6001/header-microapp.js",
+      "remoteName": "microappHeader",
+      "exposedModule": "Header"
+    }
+  ]
+}

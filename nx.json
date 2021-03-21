@@ -17,8 +17,8 @@
   },
   "projects": {
     "app-shell": { "tags": [] },
-    "app-shell-e2e": { "tags": [], "implicitDependencies": ["app-shell"] },
     "app-foo": { "tags": [] },
-    "app-foo-e2e": { "tags": [], "implicitDependencies": ["app-foo"] }
+    "app-bar": { "tags": [] },
+    "microfrontends-utils": { "tags": [] }
   }
 }
