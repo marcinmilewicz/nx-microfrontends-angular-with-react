@@ -61,6 +61,7 @@
             "polyfills": "apps/app-shell/src/polyfills.ts",
             "tsConfig": "apps/app-shell/tsconfig.app.json",
             "aot": true,
+
             "assets": [
               "apps/app-shell/src/favicon.ico",
               "apps/app-shell/src/assets"
@@ -86,7 +87,6 @@
               "outputHashing": "all",
               "sourceMap": false,
               "namedChunks": false,
-              "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
               "budgets": [
@@ -100,7 +100,10 @@
                   "maximumWarning": "6kb",
                   "maximumError": "10kb"
                 }
-              ]
+              ],
+              "customWebpackConfig": {
+                "path": "./apps/app-shell/webpack.prod.config.js"
+              }
             }
           }
         },
@@ -177,7 +180,6 @@
               "outputHashing": "all",
               "sourceMap": false,
               "namedChunks": false,
-              "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
               "budgets": [
@@ -191,7 +193,10 @@
                   "maximumWarning": "6kb",
                   "maximumError": "10kb"
                 }
-              ]
+              ],
+              "customWebpackConfig": {
+                "path": "./apps/app-foo/webpack.prod.config.js"
+              }
             }
           }
         },
@@ -270,7 +275,6 @@
               "outputHashing": "all",
               "sourceMap": false,
               "namedChunks": false,
-              "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
               "budgets": [
@@ -284,7 +288,10 @@
                   "maximumWarning": "6kb",
                   "maximumError": "10kb"
                 }
-              ]
+              ],
+              "customWebpackConfig": {
+                "path": "./apps/app-bar/webpack.prod.config.js"
+              }
             }
           }
         },

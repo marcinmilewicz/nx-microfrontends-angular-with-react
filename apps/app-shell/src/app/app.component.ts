@@ -16,7 +16,6 @@ export class AppComponent {
     private router: Router
   ) {
     const routes = configurationService.getRouteLinks();
-    console.log(routes);
     const onRouteClick = (item: { name; path }) => {
       this.router.navigateByUrl(item.path);
     };

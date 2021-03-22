@@ -38,8 +38,4 @@ export function initializeConfiguration(
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {
-  constructor(router: Router) {
-    console.log('Router shell', router.config);
-  }
-}
+export class AppModule {}
