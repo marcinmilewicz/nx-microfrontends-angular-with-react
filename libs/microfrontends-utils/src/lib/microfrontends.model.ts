@@ -1,3 +1,6 @@
+// from https://github.com/module-federation/module-federation-examples/blob/master/angular11-microfrontends/projects/mdmf-shell/src/app/utils/federation-utils.ts
+// thanks!
+
 import { InjectionToken } from '@angular/core';
 import { Routes } from '@angular/router';
 
