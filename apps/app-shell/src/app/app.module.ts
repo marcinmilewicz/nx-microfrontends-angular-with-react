@@ -1,6 +1,6 @@
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { MicrofrontendsModule } from '@nx-microfrontends/microfrontends-utils';
 
 import { AppComponent } from './app.component';

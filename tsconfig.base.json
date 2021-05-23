@@ -17,6 +17,12 @@
     "paths": {
       "@nx-microfrontends/microfrontends-utils": [
         "libs/microfrontends-utils/src/index.ts"
+      ],
+      "@nx-microfrontends/shared-components": [
+        "libs/shared-components/src/index.ts"
+      ],
+      "nx-microfrontends/shared-core-services": [
+        "dist/libs/shared-core-services"
       ]
     }
   },

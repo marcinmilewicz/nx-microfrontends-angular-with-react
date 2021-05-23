@@ -17,7 +17,7 @@ const hashRemoteModule = ({
 }: Omit<RemoteModule, 'remoteEntry'>): string =>
   `${remoteName}_${exposedModule}`;
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class MicrofrontendsService {
   private readonly remotes: Map<string, RemoteModule> = new Map();
 

@@ -23,7 +23,7 @@ export function initializeMicrofrontends(
 export class MicrofrontendsModule {
   static withConfiguration(
     microAppsConfigurationUrl: string,
-    routes: Routes
+    routes: Routes = []
   ): ModuleWithProviders<MicrofrontendsModule> {
     return {
       ngModule: MicrofrontendsModule,
@@ -46,6 +46,4 @@ export class MicrofrontendsModule {
       ],
     };
   }
-
-  constructor() {}
 }

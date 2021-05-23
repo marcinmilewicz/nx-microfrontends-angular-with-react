@@ -17,6 +17,9 @@ module.exports = {
         BarModule: './apps/app-bar/src/app/bar/bar.module.ts',
       },
       shared: {
+        'libs/shared-core-services/src/index': {
+          singleton: true,
+        },
         '@angular/core': { eager: true, singleton: true },
         '@angular/common': { eager: true, singleton: true },
         '@angular/router': { eager: true, singleton: true },

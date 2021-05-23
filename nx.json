@@ -19,6 +19,8 @@
     "app-shell": { "tags": [] },
     "app-foo": { "tags": [] },
     "app-bar": { "tags": [] },
-    "microfrontends-utils": { "tags": [] }
+    "microfrontends-utils": { "tags": [] },
+    "shared-core-services": { "tags": [] },
+    "shared-components": { "tags": [] }
   }
 }

@@ -1,8 +1,18 @@
 {
   "extends": "../../tslint.json",
   "rules": {
-    "directive-selector": [true, "attribute", "nxMicrofrontends", "camelCase"],
-    "component-selector": [true, "element", "nx-microfrontends", "kebab-case"]
+    "directive-selector": [
+      true,
+      "attribute",
+      ["nxMicrofrontends", "bar"],
+      "camelCase"
+    ],
+    "component-selector": [
+      true,
+      "element",
+      ["nx-microfrontends", "bar"],
+      "kebab-case"
+    ]
   },
   "linterOptions": {
     "exclude": ["!**/*"]

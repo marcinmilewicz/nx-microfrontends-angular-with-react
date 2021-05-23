@@ -61,7 +61,6 @@
             "polyfills": "apps/app-shell/src/polyfills.ts",
             "tsConfig": "apps/app-shell/tsconfig.app.json",
             "aot": true,
-
             "assets": [
               "apps/app-shell/src/favicon.ico",
               "apps/app-shell/src/assets"
@@ -135,7 +134,6 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/app-shell"],
           "options": {
             "jestConfig": "apps/app-shell/jest.config.js",
             "passWithNoTests": true
@@ -325,7 +323,6 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/app-bar"],
           "options": {
             "jestConfig": "apps/app-bar/jest.config.js",
             "passWithNoTests": true
@@ -350,9 +347,80 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/microfrontends-utils"],
           "options": {
             "jestConfig": "libs/microfrontends-utils/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "shared-core-services": {
+      "projectType": "library",
+      "root": "libs/shared-core-services",
+      "sourceRoot": "libs/shared-core-services/src",
+      "prefix": "nx-microfrontends",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/shared-core-services/tsconfig.lib.json",
+            "project": "libs/shared-core-services/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/shared-core-services/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared-core-services/src/**/*.ts",
+              "libs/shared-core-services/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared-core-services/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "shared-components": {
+      "projectType": "library",
+      "root": "libs/shared-components",
+      "sourceRoot": "libs/shared-components/src",
+      "prefix": "nx-microfrontends",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/shared-components/tsconfig.lib.json",
+            "project": "libs/shared-components/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/shared-components/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared-components/src/**/*.ts",
+              "libs/shared-components/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared-components/jest.config.js",
             "passWithNoTests": true
           }
         }
