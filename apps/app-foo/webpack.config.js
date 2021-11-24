@@ -1,17 +1,21 @@
-const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
+const { ModuleFederationPlugin } = require('webpack').container;
 
 module.exports = {
   output: {
     publicPath: 'http://localhost:6003/',
-    uniqueName: 'foo-microapp',
+    uniqueName: 'fooMicroapp',
+  },
+  devServer: {
+    liveReload: false,
+    hot: false,
   },
   optimization: {
     runtimeChunk: false,
   },
   plugins: [
     new ModuleFederationPlugin({
-      name: 'microappFoo',
-      library: { type: 'var', name: 'microappFoo' },
+      name: 'foo',
+      library: { type: 'var', name: 'foo' },
       filename: 'foo-microapp.js',
       exposes: {
         FooModule: './apps/app-foo/src/app/app-foo/foo.module.ts',

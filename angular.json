@@ -8,7 +8,7 @@
       "prefix": "nx-microfrontends",
       "architect": {
         "build": {
-          "builder": "@angular-builders/custom-webpack:browser",
+          "builder": "@nrwl/angular:webpack-browser",
           "options": {
             "outputPath": "dist/apps/app-bar",
             "index": "apps/app-bar/src/index.html",
@@ -59,7 +59,7 @@
           }
         },
         "serve": {
-          "builder": "@angular-builders/custom-webpack:dev-server",
+          "builder": "@nrwl/angular:webpack-server",
           "options": {
             "browserTarget": "app-bar:build"
           },
@@ -103,14 +103,13 @@
       "prefix": "nx-microfrontends",
       "architect": {
         "build": {
-          "builder": "@angular-builders/custom-webpack:browser",
+          "builder": "@nrwl/angular:webpack-browser",
           "options": {
             "outputPath": "dist/apps/app-foo",
             "index": "apps/app-foo/src/index.html",
             "main": "apps/app-foo/src/main.ts",
             "polyfills": "apps/app-foo/src/polyfills.ts",
             "tsConfig": "apps/app-foo/tsconfig.app.json",
-            "aot": true,
             "assets": [
               "apps/app-foo/src/favicon.ico",
               "apps/app-foo/src/assets"
@@ -154,7 +153,7 @@
           }
         },
         "serve": {
-          "builder": "@angular-builders/custom-webpack:dev-server",
+          "builder": "@nrwl/angular:webpack-server",
           "options": {
             "browserTarget": "app-foo:build"
           },
@@ -192,6 +191,78 @@
       },
       "tags": []
     },
+    "app-header": {
+      "root": "apps/app-header",
+      "sourceRoot": "apps/app-header/src",
+      "projectType": "application",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/web:build",
+          "outputs": ["{options.outputPath}"],
+          "defaultConfiguration": "production",
+          "options": {
+            "outputPath": "dist/apps/app-header",
+            "index": "apps/app-header/src/index.html",
+            "baseHref": "/",
+            "main": "apps/app-header/src/main.tsx",
+            "polyfills": "apps/app-header/src/polyfills.ts",
+            "tsConfig": "apps/app-header/tsconfig.app.json",
+            "assets": [
+              "apps/app-header/src/favicon.ico",
+              "apps/app-header/src/assets"
+            ],
+            "styles": ["apps/app-header/src/styles.css"],
+            "scripts": [],
+            "webpackConfig": "apps/app-header/webpack.config.js"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/app-header/src/environments/environment.ts",
+                  "with": "apps/app-header/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "app-header:build",
+            "hmr": false
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "app-header:build:production",
+              "hmr": false
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/app-header/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/app-header"],
+          "options": {
+            "jestConfig": "apps/app-header/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "app-shell": {
       "projectType": "application",
       "root": "apps/app-shell",
@@ -199,7 +270,7 @@
       "prefix": "nx-microfrontends",
       "architect": {
         "build": {
-          "builder": "@angular-builders/custom-webpack:browser",
+          "builder": "@nrwl/angular:webpack-browser",
           "options": {
             "outputPath": "dist/apps/app-shell",
             "index": "apps/app-shell/src/index.html",
@@ -214,10 +285,7 @@
             "styles": ["apps/app-shell/src/styles.scss"],
             "scripts": [],
             "customWebpackConfig": {
-              "path": "./apps/app-shell/webpack.config.js",
-              "mergeRules": {
-                "externals": "replace"
-              }
+              "path": "./apps/app-shell/webpack.config.js"
             }
           },
           "configurations": {

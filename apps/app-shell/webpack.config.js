@@ -1,9 +1,13 @@
-const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
+const { ModuleFederationPlugin } = require('webpack').container;
 
 module.exports = {
   output: {
     publicPath: 'http://localhost:3000/',
     uniqueName: 'shell',
+  },
+  devServer: {
+    liveReload: false,
+    hot: false,
   },
   optimization: {
     runtimeChunk: false,

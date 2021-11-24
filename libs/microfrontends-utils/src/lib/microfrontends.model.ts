@@ -1,6 +1,3 @@
-// from https://github.com/module-federation/module-federation-examples/blob/master/angular11-microfrontends/projects/mdmf-shell/src/app/utils/federation-utils.ts
-// thanks!
-
 import { InjectionToken } from '@angular/core';
 import { Routes } from '@angular/router';
 
@@ -27,9 +24,10 @@ declare const __webpack_init_sharing__: (shareScope: string) => Promise<void>;
 declare const __webpack_share_scopes__: { default: Scope };
 
 const moduleMap = {};
+const remoteMap = {};
 
 function loadRemoteEntry(remoteEntry: string): Promise<void> {
-  return new Promise<any>((resolve, reject) => {
+  return new Promise<void>((resolve, reject) => {
     if (moduleMap[remoteEntry]) {
       resolve();
       return;
@@ -49,16 +47,25 @@ function loadRemoteEntry(remoteEntry: string): Promise<void> {
   });
 }
 
+let isDefaultScopeInitialized = false;
+
 async function lookupExposedModule<T>(
   remoteName: string,
   exposedModule: string
 ): Promise<T> {
-  // Initializes the share scope. This fills it with known provided modules from this build and all remotes
-  await __webpack_init_sharing__('default');
-  const container = window[remoteName] as Container; // or get the container somewhere else
-  // Initialize the container, it may provide shared modules
+  // Do we still need to initialize the share scope?
+  if (!isDefaultScopeInitialized) {
+    await __webpack_init_sharing__('default');
+    isDefaultScopeInitialized = true;
+  }
 
-  await container.init(__webpack_share_scopes__.default);
+  const container = window[remoteName] as Container;
+
+  if (!remoteMap[remoteName]) {
+    await container.init(__webpack_share_scopes__.default);
+    remoteMap[remoteName] = true;
+  }
+
   const factory = await container.get(exposedModule);
 
   return factory() as T;

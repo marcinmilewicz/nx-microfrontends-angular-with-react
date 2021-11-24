@@ -63,8 +63,8 @@ export class MicrofrontendsService {
 
   private loadAndBuildAngularRoutes(modules: AngularRemoteModule[]) {
     const routes = buildRoutes(modules, this.baseRoutes, loadRemoteModule);
-
-    this.router.resetConfig(routes);
+    console.log(routes);
+    this.router.resetConfig([routes[1], routes[2]]);
   }
 
   private registerRemotes(modules: RemoteModule[]) {

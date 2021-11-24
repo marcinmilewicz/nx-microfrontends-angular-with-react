@@ -10,7 +10,7 @@
     },
     {
       "remoteEntry": "http://localhost:6003/foo-microapp.js",
-      "remoteName": "microappFoo",
+      "remoteName": "foo",
       "exposedModule": "FooModule",
       "displayName": "Foo App",
       "routePath": "foo-microapp",
